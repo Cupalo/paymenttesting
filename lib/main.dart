@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
+import 'package:testingplugin/key.dart';
 import 'package:testingplugin/paypal.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // set the publishable key for Stripe - this is mandatory
-  Stripe.publishableKey =
-      'pk_test_51MP0JyLrADCWFVPwa68mhjTawCdfofOYqqWy1jplhwdP48Rc05f9U8gURedgF3WdYvyYYCMW6q9KvkaCMBzSMBW800y9Bs7E5C';
+  Stripe.publishableKey = stripePublishableKey;
   Stripe.merchantIdentifier = '-';
   await Stripe.instance.applySettings();
   runApp(const MyApp());
@@ -148,10 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 MaterialPageRoute(
                   builder: (BuildContext context) => UsePaypal(
                     sandboxMode: true,
-                    clientId:
-                        'ASBKGEde0F0ty-3qF_ia0reWko9tD2lhdxn9hql-PKezFr_EjCBY9b_GrnorqHIWzLs8Fs6pFE0ej7C5',
-                    secretKey:
-                        'EK8a6AzQvuKWsUC_4vRVOFZwsvImOGGBnZRBeJpfXhIJC2b5R6Yw1GAFipKeY7qhdwPlCahh3e0L3Xbj',
+                    clientId: paypalClientId,
+                    secretKey: paypalSecret,
                     returnURL: 'nativexo://paypalpay',
                     // returnURL: "https://samplesite.com/return",
                     cancelURL: "https://samplesite.com/cancel",
@@ -217,10 +215,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 MaterialPageRoute(
                   builder: (BuildContext context) => UsePaypal(
                     sandboxMode: true,
-                    clientId:
-                        'AaB9iCiIc-aiYb8XWxqQ_KW6EL-twGuaTltQf2IHDs9PtOC1qvDyukuXy6PNENA_Zr9HSfclpaA5jVHH',
-                    secretKey:
-                        'EJmC1DUemjaSXfc6LPPI2mjICwWQbGpkw8JfdtYkPY6ifBOrYfQZwQFh1hf-9tgnmq-WA5G0D5Vcnn2N',
+                    clientId: paypalClientId2,
+                    secretKey: paypalSecret2,
                     returnURL: 'nativexo://paypalpay',
                     // returnURL: "https://samplesite.com/return",
                     cancelURL: "https://samplesite.com/cancel",
@@ -351,8 +347,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Uri.parse('https://api.stripe.com/v1/payment_intents'),
         body: body,
         headers: {
-          'Authorization':
-              'Bearer sk_test_51MP0JyLrADCWFVPwjBRO7eZKsZ1zK4dxVCmrQMqrE4v8jqX3ngutQnvaRa5I7dfvl2xhaOCltBh7MReb6IHYJ8uO00G2G3pee3',
+          'Authorization': 'Bearer $stripeSecretKey',
           'Content-Type': 'application/x-www-form-urlencoded'
         },
       );
